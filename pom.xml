@@ -21,6 +21,7 @@
 		<groupId>org.osadev.osa.runtime.newdes</groupId>
 		<artifactId>osa-newdes-runtime</artifactId>
 		<version>0.8.0-SNAPSHOT</version>
+		<relativePath>../ooo.runtime.newdes/</relativePath>
 	</parent>
 
 	<groupId>org.osadev.osa.runtime.newdes.logger</groupId>
