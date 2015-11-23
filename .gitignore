@@ -5,3 +5,5 @@ target/
 *.md.html
 /bin/
 .#.*
+/target/
+/target/

@@ -1,7 +1,6 @@
 /**
+ * OSA Logger
  * 
- */
-/**
  * @author odalle
  *
  */

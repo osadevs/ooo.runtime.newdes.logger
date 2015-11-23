@@ -19,288 +19,497 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 
-import fr.inria.osa.simapis.simulation.SimulationLoggerItf;
-import fr.inria.osa.simapis.modeling.SimulationTimeAPI;
-
-
-
-
-public class SimulationLogger<U extends Comparable<U>> implements SimulationLoggerItf<U> {
-	
-	final private Logger logger_;
-	private SimulationTimeAPI<U> timeAPI_ = null;
-	
-	private String timeStr_ = null;
-	private U timeVal_ = null;
-	
-	public SimulationLogger(final Class<?> clazz) {
-		logger_ = LoggerFactory.getLogger(clazz);
-	}
-	
-	private final String getTimeString() {
-		if (timeAPI_ == null) return null;
-		U current = timeAPI_.getSimulationTime().get();
-		if (current != timeVal_) {
-			timeVal_ = current;
-			timeStr_ = current.toString() + ": ";
-		}
-		return timeStr_;
-	}
-	
-	private final String prepandTime(final String message) {
-		String str = getTimeString();
-		if (str != null) return str+message;
-		else return message;
-	}
-	
-	public void setTimeApi(SimulationTimeAPI<U> timeAPI) {
-		this.timeAPI_ = timeAPI;
-	}
-
-	public void debug(Marker arg0, String arg1, Object arg2, Object arg3) {
-		logger_.debug(arg0, prepandTime(arg1), arg2, arg3);
-	}
-
-	public void debug(Marker arg0, String arg1, Object... arg2) {
-		logger_.debug(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void debug(Marker arg0, String arg1, Object arg2) {
-		logger_.debug(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void debug(Marker arg0, String arg1, Throwable arg2) {
-		logger_.debug(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void debug(Marker arg0, String arg1) {
-		logger_.debug(arg0, prepandTime(arg1));
-	}
-
-	public void debug(String arg0, Object arg1, Object arg2) {
-		logger_.debug(prepandTime(arg0), arg1, arg2);
-	}
-
-	public void debug(String arg0, Object... arg1) {
-		logger_.debug(prepandTime(arg0), arg1);
-	}
-
-	public void debug(String arg0, Object arg1) {
-		logger_.debug(prepandTime(arg0), arg1);
-	}
-
-	public void debug(String arg0, Throwable arg1) {
-		logger_.debug(prepandTime(arg0), arg1);
-	}
-
-	public void debug(String arg0) {
-		logger_.debug(prepandTime(arg0));
-	}
-
-	public void error(Marker arg0, String arg1, Object arg2, Object arg3) {
-		logger_.error(arg0, prepandTime(arg1), arg2, arg3);
-	}
-
-	public void error(Marker arg0, String arg1, Object... arg2) {
-		logger_.error(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void error(Marker arg0, String arg1, Object arg2) {
-		logger_.error(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void error(Marker arg0, String arg1, Throwable arg2) {
-		logger_.error(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void error(Marker arg0, String arg1) {
-		logger_.error(arg0, prepandTime(arg1));
-	}
-
-	public void error(String arg0, Object arg1, Object arg2) {
-		logger_.error(prepandTime(arg0), arg1, arg2);
-	}
-
-	public void error(String arg0, Object... arg1) {
-		logger_.error(prepandTime(arg0), arg1);
-	}
-
-	public void error(String arg0, Object arg1) {
-		logger_.error(prepandTime(arg0), arg1);
-	}
-
-	public void error(String arg0, Throwable arg1) {
-		logger_.error(prepandTime(arg0), arg1);
-	}
-
-	public void error(String arg0) {
-		logger_.error(prepandTime(arg0));
-	}
-
-	public String getName() {
-		return logger_.getName();
-	}
-
-	public void info(Marker arg0, String arg1, Object arg2, Object arg3) {
-		logger_.info(arg0, prepandTime(arg1), arg2, arg3);
-	}
-
-	public void info(Marker arg0, String arg1, Object... arg2) {
-		logger_.info(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void info(Marker arg0, String arg1, Object arg2) {
-		logger_.info(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void info(Marker arg0, String arg1, Throwable arg2) {
-		logger_.info(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void info(Marker arg0, String arg1) {
-		logger_.info(arg0, prepandTime(arg1));
-	}
-
-	public void info(String arg0, Object arg1, Object arg2) {
-		logger_.info(prepandTime(arg0), arg1, arg2);
-	}
-
-	public void info(String arg0, Object... arg1) {
-		logger_.info(prepandTime(arg0), arg1);
-	}
-
-	public void info(String arg0, Object arg1) {
-		logger_.info(prepandTime(arg0), arg1);
-	}
-
-	public void info(String arg0, Throwable arg1) {
-		logger_.info(prepandTime(arg0), arg1);
-	}
-
-	public void info(String arg0) {
-		logger_.info(prepandTime(arg0));
-	}
-
-	public boolean isDebugEnabled() {
-		return logger_.isDebugEnabled();
-	}
-
-	public boolean isDebugEnabled(Marker arg0) {
-		return logger_.isDebugEnabled(arg0);
-	}
-
-	public boolean isErrorEnabled() {
-		return logger_.isErrorEnabled();
-	}
-
-	public boolean isErrorEnabled(Marker arg0) {
-		return logger_.isErrorEnabled(arg0);
-	}
-
-	public boolean isInfoEnabled() {
-		return logger_.isInfoEnabled();
-	}
-
-	public boolean isInfoEnabled(Marker arg0) {
-		return logger_.isInfoEnabled(arg0);
-	}
-
-	public boolean isTraceEnabled() {
-		return logger_.isTraceEnabled();
-	}
-
-	public boolean isTraceEnabled(Marker arg0) {
-		return logger_.isTraceEnabled(arg0);
-	}
-
-	public boolean isWarnEnabled() {
-		return logger_.isWarnEnabled();
-	}
-
-	public boolean isWarnEnabled(Marker arg0) {
-		return logger_.isWarnEnabled(arg0);
-	}
-
-	public void trace(Marker arg0, String arg1, Object arg2, Object arg3) {
-		logger_.trace(arg0, prepandTime(arg1), arg2, arg3);
-	}
-
-	public void trace(Marker arg0, String arg1, Object... arg2) {
-		logger_.trace(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void trace(Marker arg0, String arg1, Object arg2) {
-		logger_.trace(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void trace(Marker arg0, String arg1, Throwable arg2) {
-		logger_.trace(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void trace(Marker arg0, String arg1) {
-		logger_.trace(arg0, prepandTime(arg1));
-	}
-
-	public void trace(String arg0, Object arg1, Object arg2) {
-		logger_.trace(prepandTime(arg0), arg1, arg2);
-	}
-
-	public void trace(String arg0, Object... arg1) {
-		logger_.trace(prepandTime(arg0), arg1);
-	}
-
-	public void trace(String arg0, Object arg1) {
-		logger_.trace(prepandTime(arg0), arg1);
-	}
-
-	public void trace(String arg0, Throwable arg1) {
-		logger_.trace(prepandTime(arg0), arg1);
-	}
-
-	public void trace(String arg0) {
-		logger_.trace(prepandTime(arg0));
-	}
-
-	public void warn(Marker arg0, String arg1, Object arg2, Object arg3) {
-		logger_.warn(arg0,prepandTime(arg1), arg2, arg3);
-	}
-
-	public void warn(Marker arg0, String arg1, Object... arg2) {
-		logger_.warn(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void warn(Marker arg0, String arg1, Object arg2) {
-		logger_.warn(arg0,prepandTime(arg1), arg2);
-	}
-
-	public void warn(Marker arg0, String arg1, Throwable arg2) {
-		logger_.warn(arg0, prepandTime(arg1), arg2);
-	}
-
-	public void warn(Marker arg0, String arg1) {
-		logger_.warn(arg0, prepandTime(arg1));
-	}
-
-	public void warn(String arg0, Object arg1, Object arg2) {
-		logger_.warn(prepandTime(arg0), arg1, arg2);
-	}
-
-	public void warn(String arg0, Object... arg1) {
-		logger_.warn(prepandTime(arg0), arg1);
-	}
-
-	public void warn(String arg0, Object arg1) {
-		logger_.warn(prepandTime(arg0), arg1);
-	}
-
-	public void warn(String arg0, Throwable arg1) {
-		logger_.warn(prepandTime(arg0), arg1);
-	}
-
-	public void warn(String arg0) {
-		logger_.warn(prepandTime(arg0));
-	}
-	
-	
+import org.osadev.osa.simapis.simulation.SimulationLoggerItf;
+import org.osadev.osa.simapis.modeling.SimulationTimeAPI;
+
+/**
+ * An extended logger based on slf4j that automatically prepends the current
+ * simulation time to all traces.
+ * 
+ * @author odalle
+ *
+ * @param <U>
+ *            The generic type used for holding simulation time.
+ */
+public class SimulationLogger<U extends Comparable<U>> implements
+        SimulationLoggerItf<U> {
+
+    final private Logger         logger_;
+    private SimulationTimeAPI<U> timeAPI_ = null;
+
+    private String               timeStr_ = null;
+    private U                    timeVal_ = null;
+
+    public SimulationLogger(final Class<?> clazz) {
+        logger_ = LoggerFactory.getLogger(clazz);
+    }
+
+    /**
+     * Get curent simulation time from simulation engine.
+     * 
+     * @return
+     *          current simulation time
+     */
+    private final String getTimeString() {
+        if (timeAPI_ == null)
+            return null;
+        U current = timeAPI_.getSimulationTime().get();
+        if (current != timeVal_) {
+            timeVal_ = current;
+            timeStr_ = current.toString() + ": ";
+        }
+        return timeStr_;
+    }
+
+    /**
+     * Prepand current simulation time to a message
+     * 
+     * @param message
+     *          Message to which time is to be prepanded
+     * @return
+     *          Updated message
+     */
+    private final String prepandTime(final String message) {
+        String str = getTimeString();
+        if (str != null)
+            return str + message;
+        else
+            return message;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see org.osadev.osa.simapis.simulation.TimeApiSetterItf#setTimeApi(org.osadev.osa.simapis.modeling.SimulationTimeAPI)
+     */
+    public void setTimeApi(SimulationTimeAPI<U> timeAPI) {
+        this.timeAPI_ = timeAPI;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void debug(Marker arg0, String arg1, Object arg2, Object arg3) {
+        logger_.debug(arg0, prepandTime(arg1), arg2, arg3);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void debug(Marker arg0, String arg1, Object... arg2) {
+        logger_.debug(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void debug(Marker arg0, String arg1, Object arg2) {
+        logger_.debug(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void debug(Marker arg0, String arg1, Throwable arg2) {
+        logger_.debug(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void debug(Marker arg0, String arg1) {
+        logger_.debug(arg0, prepandTime(arg1));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void debug(String arg0, Object arg1, Object arg2) {
+        logger_.debug(prepandTime(arg0), arg1, arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void debug(String arg0, Object... arg1) {
+        logger_.debug(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void debug(String arg0, Object arg1) {
+        logger_.debug(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void debug(String arg0, Throwable arg1) {
+        logger_.debug(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void debug(String arg0) {
+        logger_.debug(prepandTime(arg0));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void error(Marker arg0, String arg1, Object arg2, Object arg3) {
+        logger_.error(arg0, prepandTime(arg1), arg2, arg3);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void error(Marker arg0, String arg1, Object... arg2) {
+        logger_.error(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void error(Marker arg0, String arg1, Object arg2) {
+        logger_.error(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void error(Marker arg0, String arg1, Throwable arg2) {
+        logger_.error(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void error(Marker arg0, String arg1) {
+        logger_.error(arg0, prepandTime(arg1));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void error(String arg0, Object arg1, Object arg2) {
+        logger_.error(prepandTime(arg0), arg1, arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void error(String arg0, Object... arg1) {
+        logger_.error(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void error(String arg0, Object arg1) {
+        logger_.error(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void error(String arg0, Throwable arg1) {
+        logger_.error(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void error(String arg0) {
+        logger_.error(prepandTime(arg0));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getName() {
+        return logger_.getName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void info(Marker arg0, String arg1, Object arg2, Object arg3) {
+        logger_.info(arg0, prepandTime(arg1), arg2, arg3);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void info(Marker arg0, String arg1, Object... arg2) {
+        logger_.info(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void info(Marker arg0, String arg1, Object arg2) {
+        logger_.info(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void info(Marker arg0, String arg1, Throwable arg2) {
+        logger_.info(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void info(Marker arg0, String arg1) {
+        logger_.info(arg0, prepandTime(arg1));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void info(String arg0, Object arg1, Object arg2) {
+        logger_.info(prepandTime(arg0), arg1, arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void info(String arg0, Object... arg1) {
+        logger_.info(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void info(String arg0, Object arg1) {
+        logger_.info(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void info(String arg0, Throwable arg1) {
+        logger_.info(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void info(String arg0) {
+        logger_.info(prepandTime(arg0));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isDebugEnabled() {
+        return logger_.isDebugEnabled();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isDebugEnabled(Marker arg0) {
+        return logger_.isDebugEnabled(arg0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isErrorEnabled() {
+        return logger_.isErrorEnabled();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isErrorEnabled(Marker arg0) {
+        return logger_.isErrorEnabled(arg0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isInfoEnabled() {
+        return logger_.isInfoEnabled();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isInfoEnabled(Marker arg0) {
+        return logger_.isInfoEnabled(arg0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isTraceEnabled() {
+        return logger_.isTraceEnabled();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isTraceEnabled(Marker arg0) {
+        return logger_.isTraceEnabled(arg0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isWarnEnabled() {
+        return logger_.isWarnEnabled();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isWarnEnabled(Marker arg0) {
+        return logger_.isWarnEnabled(arg0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void trace(Marker arg0, String arg1, Object arg2, Object arg3) {
+        logger_.trace(arg0, prepandTime(arg1), arg2, arg3);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public void trace(Marker arg0, String arg1, Object... arg2) {
+        logger_.trace(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void trace(Marker arg0, String arg1, Object arg2) {
+        logger_.trace(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void trace(Marker arg0, String arg1, Throwable arg2) {
+        logger_.trace(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void trace(Marker arg0, String arg1) {
+        logger_.trace(arg0, prepandTime(arg1));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void trace(String arg0, Object arg1, Object arg2) {
+        logger_.trace(prepandTime(arg0), arg1, arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void trace(String arg0, Object... arg1) {
+        logger_.trace(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void trace(String arg0, Object arg1) {
+        logger_.trace(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void trace(String arg0, Throwable arg1) {
+        logger_.trace(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void trace(String arg0) {
+        logger_.trace(prepandTime(arg0));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void warn(Marker arg0, String arg1, Object arg2, Object arg3) {
+        logger_.warn(arg0, prepandTime(arg1), arg2, arg3);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void warn(Marker arg0, String arg1, Object... arg2) {
+        logger_.warn(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void warn(Marker arg0, String arg1, Object arg2) {
+        logger_.warn(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void warn(Marker arg0, String arg1, Throwable arg2) {
+        logger_.warn(arg0, prepandTime(arg1), arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void warn(Marker arg0, String arg1) {
+        logger_.warn(arg0, prepandTime(arg1));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void warn(String arg0, Object arg1, Object arg2) {
+        logger_.warn(prepandTime(arg0), arg1, arg2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void warn(String arg0, Object... arg1) {
+        logger_.warn(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void warn(String arg0, Object arg1) {
+        logger_.warn(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void warn(String arg0, Throwable arg1) {
+        logger_.warn(prepandTime(arg0), arg1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void warn(String arg0) {
+        logger_.warn(prepandTime(arg0));
+    }
 
 }
